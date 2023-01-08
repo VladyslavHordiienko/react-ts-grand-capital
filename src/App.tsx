@@ -1,26 +1,34 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import MainLayouts from "./layouts/MainLayouts";
+import {BrowserRouter as Router, Routes, Route} from "react-router-dom"
+import SvgBodies from "./utils/SVGBodies";
+import Home from "./pages/Home";
+import Catalog from "./pages/Catalog";
+import Card from "./pages/Card";
+import {Provider} from "react-redux";
+import {store} from "./redux/store";
+import Contact from "./pages/Contact";
+
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <>
+            <Provider store={store}>
+                <Router>
+                    <Routes>
+                        <Route path={"/"} element={<MainLayouts/>}>
+                            <Route path={""} element={<Home/>}/>
+                            <Route path={"catalog"} element={<Catalog/>}/>
+                            <Route path={"catalog/:title"} element={<Card/>}/>
+                            <Route path={"contact"} element={<Contact/>}/>
+                        </Route>
+                    </Routes>
+                </Router>
+            </Provider>
+            <SvgBodies/>
+        </>
+    );
 }
 
 export default App;
